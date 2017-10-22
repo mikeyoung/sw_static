@@ -761,26 +761,6 @@ $(document).ready(function () {
     let spellsArray = (new SWSpells()).spellObjectArray;
     let activeSpellClass = "Cleric";
 
-
-    /*
-    if (false) {
-    // if (getUrlParameter("state")) {
-        let stateParamJSON = JSON.parse(decodeURIComponent(getUrlParameter("state")));
-        let spellsParamArray = stateParamJSON.spells;
-
-        activeSpellsArray = spellsParamArray.map(function (spellID) {
-            let theSpell = {};
-            for (let spell of spellsArray) {
-                if (spell.id === spellID) {
-                    theSpell = spell;
-                    break;
-                }
-            }
-            return theSpell;
-        });
-    }
-    */
-
     if (getUrlParameter("state")) {
         let stateParamJSON = JSON.parse(decodeURIComponent(getUrlParameter("state")));
         activeSpellClass = stateParamJSON.spellClass;
