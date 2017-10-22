@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+        <meta charset="utf-8" />
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>S&amp;W Spells</title>
+        <link href="/Content/bootstrap.min.css" rel="stylesheet"/>
+        <link href="/Content/site.css" rel="stylesheet"/>
+        <link href="https://fonts.googleapis.com/css?family=IM+Fell+English" rel="stylesheet">
+        <script src="/Scripts/modernizr-2.6.2.js"></script>
+    </head>
+    <body id="top">
+        <div class="body-content">
+            <div class="hidden-print">
+                <h1 class="siteHeader">Swords &amp; Wizardy: Core Rules Spellbook Utility</h1>
+            </div>
+            <div id="app" v-cloak class="container">
+                <div class="row hidden-print">
+                    <div class="col-xs-12 text-center">
+                        <select v-model="activeSpellClass" @change="updateURL" tabindex="1" class="classSelect">
+                            <option value="Cleric">Cleric</option>
+                            <option value="Magic-User">Magic-User</option>
+                        </select>
+                        <span class="utility-button btn btn-lg" @click="showInstructions"><span class="glyphicon glyphicon-info-sign"></span><span class="hidden-xs visible-sm utility-label"> Instructions</span></span>
+                        <span class="utility-button btn btn-lg" @click="printSpellbook"><span class="glyphicon glyphicon-print"></span><span class="hidden-xs visible-sm utility-label"> Print</span></span>
+                        <span class="utility-button btn btn-lg" @click="spellbookModal"><span class="glyphicon glyphicon-remove-circle"></span><span class="hidden-xs visible-sm utility-label"> Reset</span></span>
+                    </div>
+                </div>
+                <div v-for="row of Math.ceil(levels.length / 3)" class="row hidden-print">
+                    <div v-for="level of levels.slice((row - 1) * 3, row * 3)" class="col-xs-12 col-sm-4" v-if="!(level > 7 && activeSpellClass === 'Cleric')">
+                        <h3 class="spell-category-header">{{ activeSpellClass }} Level {{ level }} Spells</h3>
+                        <ul class="spell-menu-list">
+                            <li class="spell-menu-item clearfix"
+                                is="spell-menu-item"
+                                v-for="spell of spells"
+                                v-if="spell.spellClass === activeSpellClass && spell.level === level"
+                                :spell="spell"
+                                :spells="spells"
+                                v-on:checkbox-change="checkboxChange"
+                                v-on:spell-click="spellClick">
+                            </li>
+                        </ul>
+                    </div>
+                </div><!-- .row -->
+                <footer class="hidden-print text-center">
+                    Swords and Wizardry Core Rules available on <a href="http://www.lulu.com/shop/matthew-finch/swords-wizardry-core-rules-pdf/ebook/product-15718826.html" target="_blank">Lulu</a> and <a href="http://www.drivethrurpg.com/product/62346/Swords--Wizardry-Core-Rules" target="_blank">Drive-Thru-RPG</a>.<br />
+                    Map background courtesy of <a href="http://paratime.ca/cartography/bw_dungeons.html" target="_blank">Tim Hartin</a>.
+                </footer>
+                <div class="row visible-print"
+                     is="spell-entry"
+                     v-for="spell of spells"
+                     v-if="spell.selected && spell.spellClass === activeSpellClass"
+                     :spell="spell">
+                </div><!-- .row -->
+                <div id="spellModal" class="modal fade" role="dialog">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">{{ selectedSpell.title }}</h4>
+                            </div>
+                            <div class="modal-body" v-html="selectedSpell.description"></div>
+                        </div>
+
+                    </div>
+                </div><!-- #spellModal -->
+                <div id="instructionsModal" class="modal fade" role="dialog">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">Instructions</h4>
+                            </div>
+                            <div class="modal-body">
+                                <p>Choose either "Cleric" or "Magic-User" from the dropdown menu to filter the spell list accordingly.</p>
+                                <p>Click on a spell name to read its details.</p>
+                                <p>Select spells to print by checking the boxes next to their name.  Print the selected spells by clicking the "Print" button.</p>
+                                <p>Share or bookmark the URL at any point to retain the current selections.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- #instructionsModal -->
+                <div id="resetModal" class="modal fade" role="dialog">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">Reset spellbook</h4>
+                            </div>
+                            <div class="modal-body text-center">
+                                <p>Reset spellbook and deselect all spells?</p>
+                                <button class="modal-button modal-button-cancel" @click="closeResetModal">Cancel</button>
+                                <button class="modal-button modal-button-confirm" @click="resetSpellbook">Confirm</button>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- #resetModal -->
+                <div id="customModal" class="modal fade" role="dialog">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">{{ customModal.title }}</h4>
+                            </div>
+                            <div class="modal-body" v-html="customModal.body"></div>
+                        </div>
+                    </div>
+                </div><!-- #customModal -->
+            </div>
+        </div>
+
+        <script src="/Scripts/jquery-1.10.2.js"></script>
+        <script src="/Scripts/bootstrap.js"></script>
+        <script src="/Scripts/respond.js"></script>
+
+    <!--
+        <script src="~/Scripts/vue.js"></script>
+    -->
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.4.2/vue.min.js" integrity="sha384-/w8o3oLMIfqzoJ65efKuSU/BSlOIKbin03Mxh3MJv2U6lFtwBf0jwXKJYU9k4A//" crossorigin="anonymous"></script>
+        <script>window.Vue || document.write('\x3Cscript type="text/javascript" src="~/Scripts/vue.min.js">\x3C/script>');</script>
+        <script src="/Scripts/rules.js"></script>
+    </body>
+</html>

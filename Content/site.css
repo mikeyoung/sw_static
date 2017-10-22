@@ -1,0 +1,262 @@
+﻿@font-face {
+    font-family: 'futurabc';
+    src: url('~/fonts/FUTURABC.eot');
+    src: url('~/fonts/futurabc.woff') format('woff'), url('../fonts/futurabc.ttf') format('truetype'), url('../fonts/futurabc.svg') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'futura-book';
+    src: url('~/fonts/futura-book.eot');
+    src: url('~/fonts/futura-book.woff') format('woff'), url('../fonts/futura-book.ttf') format('truetype'), url('../fonts/futura-book.svg') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    padding: 0;
+    margin: 0;
+    font-family: 'futura-book';
+    font-size: 14px;
+    -webkit-print-color-adjust: exact;
+    background-color: #000;
+    background-image: url(/Images/sw_spell_bg.jpg);
+    background-repeat: repeat;
+}
+
+h3 {
+    font-size: 1.3em;
+}
+
+.spell-category-header {
+    color: #fff;
+}
+
+select {
+    background-color: #fff;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+[v-cloak] {
+    opacity: 0;
+}
+
+h1,
+h2 {
+    font-family: 'IM Fell English', serif;
+    font-size: 1.5em;
+    margin-top: 10px;
+    color: #fff;
+}
+
+h3,
+h4,
+h5,
+h6,
+th {
+    font-family: 'futurabc', serif;
+}
+
+th {
+    font-weight: 400;
+}
+
+.row {
+    margin: 0 auto;
+}
+
+.spell-checkbox-wrap {
+    float: left;
+    width: 1.5em;
+}
+
+.spell-name-wrap {
+    float: left;
+    max-width: 88%;
+}
+
+.spell-entry {
+    margin-bottom: 2em;
+    background-color: #fff;
+    padding: 1em;
+    border: 1px solid #eee;
+}
+
+.spell-entry-header {
+    text-transform: uppercase;
+    display: block;
+    margin-top: 0;
+}
+
+.back-to-top {
+    float: right;
+    display: block;
+    font-size: 12px;
+    color: #000;
+    text-decoration: none !important;
+}
+
+.spell-entry-label {
+    font-family: 'futurabc', serif;
+    font-size: 1.1em;
+}
+
+.classSelect {
+    color: #fff;
+    background-color: #000;
+    border: 1px solid #fff;
+    padding: 0;
+    margin: 0 .5em 0 0;
+}
+
+.siteHeader {
+    text-align: center;
+    background-color: #000;
+    padding: .3em;
+}
+
+.addSpellColumn {
+    margin-bottom: 1em;
+}
+
+.grayBg {
+    background-color: #eee;
+}
+
+.rules-table {
+    width: 100%;
+}
+
+.rules-table th,
+.rules-table td {
+    padding: .1em .5em;
+    text-align: center;
+}
+
+.rules-table td {
+    border: 1px solid #000;
+}
+
+.rules-table tr:nth-child(even) {
+    background-color: #eee !important;
+}
+
+.classSelectWrap select {
+    margin-bottom: 15px;
+}
+
+.spell-menu-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.spell-menu-item {
+    padding: 2px 2px 2px 8px;
+    border: 1px solid #000;
+    margin-bottom: .2em;
+}
+
+.spell-menu-item.checkedSpellRow {
+    border: 1px solid #fff;
+}
+
+
+.spell-menu-item a {
+    color: #fff !important;
+}
+
+.checkedSpellRow {
+    background-color: #000;
+}
+
+.utility-button {
+    margin: 0;
+    color: #fff !important;
+    padding: .5em;
+}
+
+.utility-label {
+    display: inline-block !important;
+    margin-left: .4em;
+}
+
+footer {
+    color: #fff;
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+footer a {
+    color: #fff !important;
+    text-decoration: underline;
+}
+
+.modal-button {
+    margin: .5em;
+}
+
+.modal-button-cancel {
+    color: #000;
+    background-color: #fff;
+    border: 1px solid #000;
+}
+
+.modal-button-confirm {
+    color: #fff;
+    background-color: #000;
+    border: 1px solid #fff;
+}
+
+@media print {
+    body {
+        font-size: 10px;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+
+    .col-sm-6 {
+        width: 50%;
+        float: left;
+    }
+
+    .spell-entry {
+        page-break-inside: avoid;
+    }
+
+    .addSpellColumn {
+        width: 0;
+    }
+
+    h1 {
+        color: #000;
+    }
+
+    .container {
+        max-width: 600px;
+    }
+
+    body {
+        background-image: none;
+        background-color: none;
+    }
+}
